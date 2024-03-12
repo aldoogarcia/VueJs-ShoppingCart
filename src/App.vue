@@ -11,10 +11,16 @@ const items = ref([
 
 const newItem= ref("");
 
+const saveItemp = ()=> {
+  //Agraga un nuevo objeto a la lista
+  items.value.push({id: items.value.length, label:newItem.value});
+  //borra el contenido de la caja de texto
+  newItem.value= "";
+};
 
 </script>
 <template>
-<form v-on:submit.prevent="items.push({id: items.length, label:newItem})" class="add-item form">
+<form v-on:submit.prevent="saveItemp" class="add-item form">
   <h1>🛒 App lista de compras</h1>
   <div class="add-item form">
     <input  v-model="newItem" type="text" placeholder="Agregar articulo">
@@ -24,7 +30,6 @@ const newItem= ref("");
     <button class="btn btn-primary" >Agregar articulo</button>
   </div>
   <!--Checkbox-->
-
 </form>
 <ul>
   <li v-for="({id,label},i)  in items" v-bind:key="id">🛒 {{ label }} 
