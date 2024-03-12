@@ -13,22 +13,24 @@ const newItem= ref("");
 
 
 </script>
-
 <template>
+<form v-on:submit.prevent="items.push({id: items.length, label:newItem})" class="add-item form">
   <h1>🛒 App lista de compras</h1>
   <div class="add-item form">
-    <input v-model="newItem" type="text" placeholder="Agregar articulo">
+    <input  v-model="newItem" type="text" placeholder="Agregar articulo">
     <label><input type="checkbox" v-model="newItem">Alta prioridad</label>
     <br>
     <!--Buton-->
-    <button class="btn btn-primary" v-on:click="items.push({id: items.length, label:newItem})">Agregar articulo</button>
+    <button class="btn btn-primary" >Agregar articulo</button>
   </div>
   <!--Checkbox-->
 
-  <ul>
-    <li v-for="({id,label},i)  in items" v-bind:key="id">🛒 {{ label }} 
-    </li>
-  </ul>
+</form>
+<ul>
+  <li v-for="({id,label},i)  in items" v-bind:key="id">🛒 {{ label }} 
+  </li>
+</ul>
+
 </template>
 
 
