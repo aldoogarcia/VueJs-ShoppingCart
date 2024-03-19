@@ -3,12 +3,12 @@
 import { ref } from 'vue'
 
 const items = ref([
-  //{ id: 1, label: "Leche" }, // Unique IDs and capitalized label
-  //{ id: 2, label: "Carne" },
-  //{ id: 3, label: "Arroz" },
-  //{ id: 4, label: "Pezcado" }
+  { id: 1, label: "Leche",purchased:false,highPriority:true }, // Unique IDs and capitalized label
+  { id: 2, label: "Carne",purchased:true ,highPriority:false},
+  { id: 3, label: "Arroz",purchased:false,highPriority:true },
+  { id: 4, label: "Pezcado",purchased:false,highPriority:false }
 ]);
-
+const header=ref("Lista de compras");
 const newItem= ref("");
 
 const saveItemp = ()=> {
@@ -28,7 +28,7 @@ const mostrarOcultar=(condicion)=>{
   <!-- head -->
   <div class="header">
     <h1>
-      🛒 App lista de compras
+      🛒 {{ header }}
     </h1>
     <button v-on:click="mostrarOcultar(false)" v-if="mostrar" class="btn">Cancelar</button>
     <button v-on:click="mostrarOcultar(true)" v-else class="btn btn-primary">Agregar</button>
@@ -47,7 +47,9 @@ const mostrarOcultar=(condicion)=>{
 </form>
 <!--Entrega de lista  -->
 <ul>
-  <li v-for="({id,label},i)  in items" v-bind:key="id">🛒 {{ label }} 
+  <li v-for="({id,label,purchased,highPriority},i)  in items"
+  :class="{priority:highPriority, strikeout:purchased}"
+  v-bind:key="id">🛒 {{ label }} 
   </li>
 </ul>
 <!-- Mensaje condicional -->
