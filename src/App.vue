@@ -8,6 +8,9 @@ const items = ref([
   //  { id: 3, label: "Arroz",purchased:false,highPriority:true },
   //  { id: 4, label: "Pezcado",purchased:false,highPriority:false }
 ]);
+const reversedItems=computed(()=>{
+  return[...items.value].reverse();
+})
 const togglePurchased=(item)=>{
   item.purchased=!item.purchased;
 }
@@ -61,8 +64,8 @@ const mostrarOcultar=(condicion)=>{
 </form>
 <!--Entrega de lista  -->
 <ul>
-  <li v-for="({id,label,purchased,highPriority},i)  in items"
-  @click="togglePurchased(items[i])"
+  <li v-for="({id,label,purchased,highPriority},i)  in reversedItems"
+  @click="togglePurchased(reversedItems[i])"
   :class="{priority:highPriority, strikeout:purchased}"
   v-bind:key="id">🛒 {{ label }} 
   </li>
