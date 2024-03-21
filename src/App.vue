@@ -1,24 +1,30 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <script setup>
-import { ref } from 'vue'
-
+//Computed solo lanzan una nueva version, trabana con funciones que retornan
+import { ref, computed } from 'vue'
 const items = ref([
-   { id: 1, label: "Leche",purchased:false,highPriority:true }, // Unique IDs and capitalized label
-   { id: 2, label: "Carne",purchased:true ,highPriority:false},
-   { id: 3, label: "Arroz",purchased:false,highPriority:true },
-   { id: 4, label: "Pezcado",purchased:false,highPriority:false }
+  //  { id: 1, label: "Leche",purchased:false,highPriority:true }, // Unique IDs and capitalized label
+  //  { id: 2, label: "Carne",purchased:true ,highPriority:false},
+  //  { id: 3, label: "Arroz",purchased:false,highPriority:true },
+  //  { id: 4, label: "Pezcado",purchased:false,highPriority:false }
 ]);
 const togglePurchased=(item)=>{
   item.purchased=!item.purchased;
 }
 const header=ref("Lista de compras");
 const newItem= ref("");
+//Creando propiedad computada
+const characterCount=computed(()=>{
+  return newItem.value.length;
+});
+const newItemhigt= ref("");
 
 const saveItemp = ()=> {
   //Agraga un nuevo objeto a la lista
-  items.value.push({id: items.value.length, label:newItem.value});
+  items.value.push({id: items.value.length, label:newItem.value, highPriority: newItemhigt.value});
   //borra el contenido de la caja de texto
   newItem.value= "";
+  newItemhigt.value=false
 };
 
 const mostrar = ref(false);
@@ -44,9 +50,12 @@ const mostrarOcultar=(condicion)=>{
   
   <div class="add-item form">
     <input  v-model="newItem" type="text" placeholder="Agregar articulo">
-    <label><input type="checkbox" v-model="newItem">Alta prioridad</label>
+    <label><input type="checkbox" v-model="newItemhigt">Alta prioridad</label>
     <!--Buton-->
     <button class="btn btn-primary" >Agregar articulo</button>
+    <p class="count">
+      {{ characterCount }} /200
+    </p>
   </div>
   <!--Checkbox-->
 </form>
